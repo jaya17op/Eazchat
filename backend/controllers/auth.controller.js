@@ -19,6 +19,7 @@ export const signup = async (req, res) => {
 		// HASH PASSWORD HERE
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
+		console.log(hashedPassword);
 
 		// https://avatar-placeholder.iran.liara.run/
 
@@ -34,7 +35,6 @@ export const signup = async (req, res) => {
 		});
 
 		if (newUser) {
-			// Generate JWT token here
 			generateTokenAndSetCookie(newUser._id, res);
 			await newUser.save();
 

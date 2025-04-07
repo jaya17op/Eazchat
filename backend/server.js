@@ -7,10 +7,12 @@ import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
+
+
 dotenv.config();
 // app.use(cors()); 
 // app.use(helmet());
-// app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+// app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"})); 
 const PORT = process.env.PORT || 5000;
 
 const __dirname = path.resolve();   
@@ -21,13 +23,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes); 
 app.use("/api/users", userRoutes); 
 
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname,"frontend/dist")));
 
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+	res.sendFile(path.join(__dirname,"frontend","dist","index.html"));
 });
 const HOST="0.0.0.0"
 server.listen(PORT,HOST, () => {
 	connectToMongoDB(); 
-	console.log(`Server Running on port ${PORT}`); 
+	console.log(`Server Running on port ${PORT}`);  
 });    
